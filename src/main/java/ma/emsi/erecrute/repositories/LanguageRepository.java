@@ -1,4 +1,7 @@
 package ma.emsi.erecrute.repositories;
 
-public interface LanguageRepository {
+import ma.emsi.erecrute.entites.Language;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LanguageRepository extends JpaRepository<Language, Long> {
 }

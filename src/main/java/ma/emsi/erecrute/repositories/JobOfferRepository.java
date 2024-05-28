@@ -1,4 +1,7 @@
 package ma.emsi.erecrute.repositories;
 
-public interface JobOfferRepository {
+import ma.emsi.erecrute.entites.JobOffer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface JobOfferRepository extends JpaRepository<JobOffer, Long> {
 }

@@ -1,4 +1,6 @@
 package ma.emsi.erecrute.repositories;
 
-public interface RecruiterTypeRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RecruiterTypeRepository extends JpaRepository<RecruiterTypeRepository, Long> {
 }

@@ -1,4 +1,7 @@
 package ma.emsi.erecrute.repositories;
 
-public interface EducationRepository {
+import ma.emsi.erecrute.entites.Education;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EducationRepository extends JpaRepository<Education, Long> {
 }

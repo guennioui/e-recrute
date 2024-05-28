@@ -1,4 +1,7 @@
 package ma.emsi.erecrute.repositories;
 
-public interface ProfessionRepository {
+import ma.emsi.erecrute.entites.Profession;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProfessionRepository extends JpaRepository<Profession, Long> {
 }
