@@ -1,2 +1,4 @@
-package ma.emsi.erecrute.repositories;public interface ProfessionRepository {
+package ma.emsi.erecrute.repositories;
+
+public interface ProfessionRepository {
 }

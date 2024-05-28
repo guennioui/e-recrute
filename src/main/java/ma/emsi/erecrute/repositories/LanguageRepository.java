@@ -1,4 +1,4 @@
 package ma.emsi.erecrute.repositories;
 
-public interface UserRepository {
+public interface LanguageRepository {
 }

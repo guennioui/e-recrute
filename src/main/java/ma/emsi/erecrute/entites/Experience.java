@@ -16,13 +16,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 @Builder
-public class Experiance {
+public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long experienceId;
     private String title;
     private String company;
-    private String address;
     private LocalDate startDate;
     private LocalDate endDate;
     private String description;
