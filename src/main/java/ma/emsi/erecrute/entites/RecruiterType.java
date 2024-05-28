@@ -1,9 +1,6 @@
 package ma.emsi.erecrute.entites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +16,6 @@ public class RecruiterType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long RecruiterTypeId;
     private String recruiterType;
+    @OneToOne(mappedBy = "recruiterType", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private Recruiter recruiter;
 }

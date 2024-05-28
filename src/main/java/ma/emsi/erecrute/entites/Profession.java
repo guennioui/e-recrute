@@ -1,9 +1,6 @@
 package ma.emsi.erecrute.entites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +16,8 @@ public class Profession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long professionId;
     private String profession;
+    @OneToOne(mappedBy = "profession", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private JobOffer jobOffer;
+    @OneToOne(mappedBy = "profession", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private Experience experience;
 }

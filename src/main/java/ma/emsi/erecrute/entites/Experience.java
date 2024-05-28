@@ -1,9 +1,6 @@
 package ma.emsi.erecrute.entites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,4 +22,10 @@ public class Experience {
     private LocalDate startDate;
     private LocalDate endDate;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
+    @OneToOne
+    @JoinColumn(name = "profession_id")
+    private Profession profession;
 }

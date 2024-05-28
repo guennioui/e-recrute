@@ -1,9 +1,6 @@
 package ma.emsi.erecrute.entites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +19,12 @@ public class Location {
     private String city;
     private String country;
     private String postalCode;
+    @OneToOne(
+            mappedBy = "location",
+            orphanRemoval = true,
+            cascade = CascadeType.REMOVE)
+    private Candidate candidate;
+    @ManyToOne
+    @JoinColumn(name = "recruiter_id")
+    private Recruiter recruiter;
 }

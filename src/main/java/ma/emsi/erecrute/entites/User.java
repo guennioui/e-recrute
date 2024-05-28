@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @DiscriminatorColumn(name = "user-type")
 @SuperBuilder
 @Data
-public class User {
+public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

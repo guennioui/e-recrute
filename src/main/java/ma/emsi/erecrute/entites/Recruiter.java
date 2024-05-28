@@ -1,12 +1,14 @@
 package ma.emsi.erecrute.entites;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -20,4 +22,22 @@ public class Recruiter extends User{
     private String website;
     private String industry;
     private String companyLogo;
+    @OneToMany(
+            mappedBy = "recruiter",
+            orphanRemoval = true,
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY
+    )
+    private List<JobOffer> jobOffers = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "recruiter",
+            orphanRemoval = true,
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY
+    )
+    private List<Location> locations = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "recruiter_type_id")
+    private RecruiterType recruiterType;
+
 }

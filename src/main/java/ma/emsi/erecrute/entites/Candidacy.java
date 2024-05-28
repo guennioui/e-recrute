@@ -1,9 +1,6 @@
 package ma.emsi.erecrute.entites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +20,10 @@ public class Candidacy {
     private LocalDate appliedDate;
     private String coverLetter;
     private String applicationStatus;
+    @ManyToOne
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
+    @ManyToOne
+    @JoinColumn(name = "jobOffer_id")
+    private JobOffer jobOffer;
 }
