@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ma.emsi.erecrute.entites.enums.ApplicationStatus;
 
 import java.time.LocalDate;
 
@@ -19,7 +20,7 @@ public class Candidacy {
     private Long candidacyId;
     private LocalDate appliedDate;
     private String coverLetter;
-    private String applicationStatus;
+    private ApplicationStatus applicationStatus;
     @ManyToOne
     @JoinColumn(name = "candidate_id")
     private Candidate candidate;
