@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface IJobOfferService {
     public void addJobOffer(JobOffer jobOffer);
-    public void deleteJobOffer(JobOffer jobOffer);
-    public void updateJobOffer(JobOffer jobOffer);
+    public void deleteJobOffer(Long jobOfferId) throws JobOfferNotFoundException;
+    public void updateJobOffer(Long jobOfferId, JobOffer jobOffer)throws JobOfferNotFoundException;
     public JobOffer findJobOfferById(Long id) throws JobOfferNotFoundException;
     public List<JobOffer> getAll();
 }

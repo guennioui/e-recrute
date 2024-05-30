@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface IProfessionService {
     public void addProfession(Profession profession);
-    public void deleteProfession(Profession profession);
-    public void updateProfession(Profession profession);
+    public void deleteProfession(Long professionId) throws ProfessionNotFoundException;
+    public void updateProfession(Long professionId, Profession profession) throws ProfessionNotFoundException;
     public Profession findProfessionById(Long id) throws ProfessionNotFoundException;
     public List<Profession> getAll();
 }

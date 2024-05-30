@@ -27,12 +27,18 @@ public class ILanguageCandidateServiceImpl implements ILanguageCandidateService 
     }
 
     @Override
-    public void deleteLanguageCandidate(LanguageCandidate languageCandidate) {
+    public void deleteLanguageCandidate(Long languageCandidateId) throws LanguageCandidateNotFoundException {
+        LanguageCandidate languageCandidate = this.findLanguageCandidateById(languageCandidateId);
         this.languageCandidateRepository.delete(languageCandidate);
     }
 
     @Override
-    public void updateLanguageCandidate(LanguageCandidate languageCandidate) {
+    public void updateLanguageCandidate(Long languageCandidateId, LanguageCandidate languageCandidate)
+            throws LanguageCandidateNotFoundException {
+        LanguageCandidate languageCandidateById = this.findLanguageCandidateById(languageCandidateId);
+        languageCandidateById.setLanguage(languageCandidate.getLanguage());
+        languageCandidateById.setCandidate(languageCandidate.getCandidate());
+        languageCandidateById.setLevel(languageCandidate.getLevel());
         this.languageCandidateRepository.save(languageCandidate);
     }
 

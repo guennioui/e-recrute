@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface IEducationService {
     public void addEducation(Education education);
-    public void deleteEducation(Education education);
-    public void updateEducation(Education education);
+    public void deleteEducation(Long educationId) throws EducationNotFoundException;
+    public void updateEducation(Long educationId, Education education) throws EducationNotFoundException;
     public Education findEducationById(Long id) throws EducationNotFoundException;
     public List<Education> getAll();
 }

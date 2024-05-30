@@ -42,5 +42,4 @@ public class JobOffer {
     @ManyToOne
     @JoinColumn(name = "recruiter_id")
     private Recruiter recruiter;
-
 }

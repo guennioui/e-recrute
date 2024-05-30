@@ -27,12 +27,21 @@ public class IExperienceServiceImpl implements IExperienceService {
     }
 
     @Override
-    public void deleteExperience(Experience experience) {
+    public void deleteExperience(Long experienceId) throws ExperienceNotFoundException {
+        Experience experience = this.findExperienceById(experienceId);
         this.experienceRepository.delete(experience);
     }
 
     @Override
-    public void updateExperience(Experience experience) {
+    public void updateExperience(Long experienceId, Experience experience) throws ExperienceNotFoundException {
+        Experience experienceById = this.findExperienceById(experienceId);
+        experienceById.setProfession(experience.getProfession());
+        experienceById.setCandidate(experience.getCandidate());
+        experienceById.setCompany(experience.getCompany());
+        experienceById.setTitle(experience.getTitle());
+        experienceById.setDescription(experience.getDescription());
+        experienceById.setEndDate(experience.getEndDate());
+        experienceById.setStartDate(experience.getStartDate());
         this.experienceRepository.save(experience);
     }
 

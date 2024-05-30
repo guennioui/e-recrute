@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ILanguageService {
     public void addLanguage(Language language);
-    public void deleteLanguage(Language language);
-    public void updateLanguage(Language language);
+    public void deleteLanguage(Long languageId) throws LanguageNotFoundException;
+    public void updateLanguage(Long languageId, Language language) throws LanguageNotFoundException;
     public Language findLanguageById(Long id) throws LanguageNotFoundException;
     public List<Language> getAll();
 }

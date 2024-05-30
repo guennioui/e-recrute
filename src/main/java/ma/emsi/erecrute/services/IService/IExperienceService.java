@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface IExperienceService {
     public void addExperience(Experience experience);
-    public void deleteExperience(Experience experience);
-    public void updateExperience(Experience experience);
+    public void deleteExperience(Long experienceId) throws ExperienceNotFoundException;
+    public void updateExperience(Long experienceId, Experience experience) throws ExperienceNotFoundException;
     public Experience findExperienceById(Long id) throws ExperienceNotFoundException;
     public List<Experience> getAll();
 }

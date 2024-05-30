@@ -27,12 +27,20 @@ public class IEducationServiceImpl implements IEducationService {
     }
 
     @Override
-    public void deleteEducation(Education education) {
+    public void deleteEducation(Long educationId) throws EducationNotFoundException {
+        Education education = this.findEducationById(educationId);
         this.educationRepository.delete(education);
     }
 
     @Override
-    public void updateEducation(Education education) {
+    public void updateEducation(Long educationId, Education education) throws EducationNotFoundException {
+        Education educationById = this.findEducationById(educationId);
+        educationById.setCandidate(education.getCandidate());
+        educationById.setDegree(education.getDegree());
+        educationById.setDomain(education.getDomain());
+        educationById.setInstitution(education.getInstitution());
+        educationById.setStartDate(education.getStartDate());
+        educationById.setEndDate(education.getEndDate());
         this.educationRepository.save(education);
     }
 

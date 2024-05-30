@@ -27,12 +27,16 @@ public class IRecruiterTypeServiceImpl implements IRecruiterTypeService {
     }
 
     @Override
-    public void deleteRecruiterType(RecruiterType recruiterType) {
+    public void deleteRecruiterType(Long recruiterTypeId) throws RecruiterTypeNotFoundException {
+        RecruiterType recruiterType = this.findRecruiterTypeById(recruiterTypeId);
         this.recruiterTypeRepository.delete(recruiterType);
     }
 
     @Override
-    public void updateRecruiterType(RecruiterType recruiterType) {
+    public void updateRecruiterType(Long recruiterTypeId, RecruiterType recruiterType) throws RecruiterTypeNotFoundException {
+        RecruiterType recruiterTypeById = this.findRecruiterTypeById(recruiterTypeId);
+        recruiterTypeById.setRecruiter(recruiterType.getRecruiter());
+        recruiterTypeById.setRecruiterType(recruiterType.getRecruiterType());
         this.recruiterTypeRepository.save(recruiterType);
     }
 

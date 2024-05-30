@@ -27,12 +27,17 @@ public class IProfessionServiceImpl implements IProfessionService {
     }
 
     @Override
-    public void deleteProfession(Profession profession) {
+    public void deleteProfession(Long professionId) throws ProfessionNotFoundException {
+        Profession profession = this.findProfessionById(professionId);
         this.professionRepository.delete(profession);
     }
 
     @Override
-    public void updateProfession(Profession profession) {
+    public void updateProfession(Long professionId, Profession profession) throws ProfessionNotFoundException {
+        Profession professionById = this.findProfessionById(professionId);
+        professionById.setProfession(profession.getProfession());
+        professionById.setExperience(profession.getExperience());
+        professionById.setJobOffer(profession.getJobOffer());
         this.professionRepository.save(profession);
     }
 

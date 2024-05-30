@@ -27,12 +27,20 @@ public class ILocationServiceImpl implements ILocationService {
     }
 
     @Override
-    public void deleteLocation(Location location) {
+    public void deleteLocation(Long locationId) throws LocationNotFoundException {
+        Location location = this.findLocationById(locationId);
         this.locationRepository.delete(location);
     }
 
     @Override
-    public void updateLocation(Location location) {
+    public void updateLocation(Long locationId, Location location) throws LocationNotFoundException {
+        Location locationById = this.findLocationById(locationId);
+        locationById.setRecruiter(location.getRecruiter());
+        locationById.setCandidate(location.getCandidate());
+        locationById.setCity(location.getCity());
+        locationById.setCountry(location.getCountry());
+        location.setAddress(location.getAddress());
+        location.setPostalCode(location.getPostalCode());
         this.locationRepository.save(location);
     }
 

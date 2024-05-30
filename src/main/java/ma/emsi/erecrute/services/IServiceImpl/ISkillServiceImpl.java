@@ -27,12 +27,18 @@ public class ISkillServiceImpl implements ISkillService {
     }
 
     @Override
-    public void deleteSkill(Skill skill) {
-        this.skillRepository.delete(skill);
+    public void deleteSkill(Long skillId) throws SkillNotFoundException {
+        Skill skillById = this.findSkillById(skillId);
+        this.skillRepository.delete(skillById);
     }
 
     @Override
-    public void updateSkill(Skill skill) {
+    public void updateSkill(Long skillId, Skill skill) throws SkillNotFoundException {
+        Skill skillById = this.findSkillById(skillId);
+        skillById.setCandidate(skill.getCandidate());
+        skillById.setName(skill.getName());
+        skillById.setDescription(skill.getDescription());
+        skillById.setLevel(skill.getLevel());
         this.skillRepository.save(skill);
     }
 

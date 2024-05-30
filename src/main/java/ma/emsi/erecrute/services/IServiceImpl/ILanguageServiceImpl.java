@@ -27,12 +27,16 @@ public class ILanguageServiceImpl implements ILanguageService {
     }
 
     @Override
-    public void deleteLanguage(Language language) {
+    public void deleteLanguage(Long languageId) throws LanguageNotFoundException {
+        Language language = this.findLanguageById(languageId);
         this.languageRepository.delete(language);
     }
 
     @Override
-    public void updateLanguage(Language language) {
+    public void updateLanguage(Long languageId, Language language) throws LanguageNotFoundException{
+        Language languageById = this.findLanguageById(languageId);
+        languageById.setLanguage(language.getLanguage());
+        languageById.setLanguageCandidateList(language.getLanguageCandidateList());
         this.languageRepository.save(language);
     }
 

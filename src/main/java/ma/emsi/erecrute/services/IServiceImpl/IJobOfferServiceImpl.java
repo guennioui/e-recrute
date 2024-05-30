@@ -27,12 +27,23 @@ public class IJobOfferServiceImpl implements IJobOfferService {
     }
 
     @Override
-    public void deleteJobOffer(JobOffer jobOffer) {
+    public void deleteJobOffer(Long jobOfferId) throws JobOfferNotFoundException {
+        JobOffer jobOffer = this.findJobOfferById(jobOfferId);
         this.jobOfferRepository.delete(jobOffer);
     }
 
     @Override
-    public void updateJobOffer(JobOffer jobOffer) {
+    public void updateJobOffer(Long jobOfferId, JobOffer jobOffer) throws JobOfferNotFoundException {
+        JobOffer jobOfferById = this.findJobOfferById(jobOfferId);
+        jobOfferById.setJobTitle(jobOffer.getJobTitle());
+        jobOfferById.setJobDescription(jobOffer.getJobDescription());
+        jobOfferById.setJobType(jobOffer.getJobType());
+        jobOfferById.setRequirements(jobOffer.getRequirements());
+        jobOfferById.setLocation(jobOffer.getLocation());
+        jobOfferById.setSalary(jobOffer.getSalary());
+        jobOfferById.setPostedDate(jobOffer.getPostedDate());
+        jobOfferById.setDeadLine(jobOffer.getDeadLine());
+        jobOfferById.setActive(jobOffer.isActive());
         this.jobOfferRepository.save(jobOffer);
     }
 
