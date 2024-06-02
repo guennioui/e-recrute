@@ -1,8 +1,10 @@
 package ma.emsi.erecrute.services.IServiceImpl;
 
+import ma.emsi.erecrute.dto.RecruiterDto;
 import ma.emsi.erecrute.entites.Recruiter;
 import ma.emsi.erecrute.entites.User;
 import ma.emsi.erecrute.exceptions.RecruiterNotFoundException;
+import ma.emsi.erecrute.mappers.RecruiterMapper;
 import ma.emsi.erecrute.repositories.RecruiterTypeRepository;
 import ma.emsi.erecrute.repositories.UserRepository;
 import ma.emsi.erecrute.services.IService.IRecruiterService;
@@ -50,5 +52,15 @@ public class IRecruiterServiceImpl implements IRecruiterService {
     @Override
     public List<Recruiter> getAll() {
         return this.userRepository.findAllRecruiters();
+    }
+
+    @Override
+    public Recruiter convertToEntity(RecruiterDto recruiterDto) {
+        return RecruiterMapper.INSTANCE.RecruiterDtoToRecruiter(recruiterDto);
+    }
+
+    @Override
+    public RecruiterDto convertToDto(Recruiter recruiter) {
+        return RecruiterMapper.INSTANCE.RecruiterToRecruiterDto(recruiter);
     }
 }
