@@ -15,6 +15,8 @@ public class CandidateDto {
     private String email;
     private String password;
     private String telephone;
-    private LocalDateTime createAt;
+    private String linkedInUrl;
+    private String image;
+    private String nationality;
     private LocalDate dateOfBirth;
 }

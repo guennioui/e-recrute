@@ -25,6 +25,6 @@ public abstract class User {
     private String email;
     private String password;
     private String telephone;
-    private String linkedinUrl;
+    private String linkedInUrl;
     private LocalDateTime createAt;
 }

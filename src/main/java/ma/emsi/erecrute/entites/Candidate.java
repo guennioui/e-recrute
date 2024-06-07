@@ -21,7 +21,7 @@ import java.util.List;
 public class Candidate extends User{
     private LocalDate dateOfBirth;
     private String image;
-    private String resume;
+    //private String resume;
     private String nationality;
     @OneToMany(
             mappedBy = "candidate",
