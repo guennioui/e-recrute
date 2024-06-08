@@ -26,10 +26,11 @@ public class CandidateController {
 
     @PostMapping(path = "/sign-up", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CandidateDto> addCandidate(@RequestPart("candidate") CandidateDto candidateDto,
-                                                     @RequestPart("candidateImage")MultipartFile image)
+                                                     @RequestPart("candidateImage") MultipartFile image,
+                                                     @RequestPart("candidateResume") MultipartFile resume)
             throws IOException {
         Candidate candidate = candidateService.convertToEntity(candidateDto);
-        candidateService.addCandidate(candidate, image);
+            candidateService.addCandidate(candidate, image, resume);
         return ResponseEntity.ok(candidateDto);
     }
 }

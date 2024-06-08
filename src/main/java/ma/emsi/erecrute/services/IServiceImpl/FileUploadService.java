@@ -14,16 +14,31 @@ import java.util.UUID;
 @Service
 @NoArgsConstructor
 public class FileUploadService {
-    @Value("${file.upload-dir}")
-    private String uploadDir;
+    @Value("${file.upload-image-dir}")
+    private String imageUploadDir;
+    @Value("${file.upload-pdf-dir}")
+    private String pdfUploadDir;
 
     public String storeImage(MultipartFile image) {
         String fileName = UUID.randomUUID().toString() + "-" + image.getOriginalFilename();
         try {
-            Path fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
+            Path fileStorageLocation = Paths.get(imageUploadDir).toAbsolutePath().normalize();
             Files.createDirectories(fileStorageLocation);
             Path targetLocation = fileStorageLocation.resolve(fileName);
             Files.copy(image.getInputStream(), targetLocation);
+            return fileName;
+        } catch (IOException ex) {
+            throw new RuntimeException("Could not store file " + fileName + ". Please try again!", ex);
+        }
+    }
+
+    public String storePdf(MultipartFile pdf) {
+        String fileName = UUID.randomUUID().toString() + "-" + pdf.getOriginalFilename();
+        try {
+            Path fileStorageLocation = Paths.get(pdfUploadDir).toAbsolutePath().normalize();
+            Files.createDirectories(fileStorageLocation);
+            Path targetLocation = fileStorageLocation.resolve(fileName);
+            Files.copy(pdf.getInputStream(), targetLocation);
             return fileName;
         } catch (IOException ex) {
             throw new RuntimeException("Could not store file " + fileName + ". Please try again!", ex);

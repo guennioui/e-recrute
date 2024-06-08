@@ -34,9 +34,10 @@ public class ICandidateServiceImpl implements ICandidateService {
     }
 
     @Override
-    public void addCandidate(Candidate candidate, MultipartFile image) throws IOException {
+    public void addCandidate(Candidate candidate, MultipartFile image, MultipartFile resume) throws IOException {
         candidate.setCreateAt(LocalDateTime.now());
         String imageURL = this.fileUploadService.storeImage(image);
+        String pdfURL = this.fileUploadService.storePdf(resume);
         candidate.setImage(imageURL);
         this.userRepository.save(candidate);
     }

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ICandidateService {
-    public void addCandidate(Candidate candidate, MultipartFile image) throws IOException;
+    public void addCandidate(Candidate candidate, MultipartFile image, MultipartFile resume) throws IOException;
     public void deleteCandidate(Candidate candidate);
     public void updateCandidate(Candidate candidate);
     public Candidate findCandidateById(Long id) throws CandidateNotFoundException;
