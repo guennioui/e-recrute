@@ -1,10 +1,7 @@
 package ma.emsi.erecrute.entites;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
@@ -15,9 +12,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter @Setter
 @DiscriminatorValue("CANDIDATE")
-@SuperBuilder
 public class Candidate extends User{
     private LocalDate dateOfBirth;
     private String image;
@@ -36,7 +32,7 @@ public class Candidate extends User{
             fetch = FetchType.LAZY)
     private List<Education> educations = new ArrayList<>();
     @OneToOne
-    @JoinColumn(name = "candidate_id")
+    @JoinColumn(name = "location_id")
     private Location location;
     @OneToMany(
             mappedBy = "candidate",
@@ -59,4 +55,5 @@ public class Candidate extends User{
             fetch = FetchType.LAZY
     )
     private List<Candidacy> candidacies = new ArrayList<>();
+    
 }

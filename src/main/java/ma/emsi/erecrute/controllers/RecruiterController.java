@@ -8,6 +8,7 @@ import ma.emsi.erecrute.services.IService.IRecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +23,8 @@ public class RecruiterController {
         this.recruiterService = recruiterService;
     }
 
-    @PostMapping(path = "/sign-up")
-    public ResponseEntity<RecruiterDto> addRecruiter(@RequestBody RecruiterDto recruiterDto){
-        Recruiter recruiter = recruiterService.convertToEntity(recruiterDto);
-        this.recruiterService.addRecruiter(recruiter);
-        return ResponseEntity.ok(recruiterDto);
+    @GetMapping(path = "/home")
+    public String home(){
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
     }
-
 }
