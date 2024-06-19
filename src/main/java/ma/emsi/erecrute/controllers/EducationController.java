@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/education")
- @CrossOrigin("http://localhost:4200")
+@CrossOrigin("http://localhost:4200")
 public class EducationController {
     private final IEducationService educationService;
 

@@ -1,5 +1,6 @@
 package ma.emsi.erecrute.controllers;
 
+import ma.emsi.erecrute.dto.JobOfferDto;
 import ma.emsi.erecrute.entites.JobOffer;
 import ma.emsi.erecrute.exceptions.JobOfferNotFoundException;
 import ma.emsi.erecrute.services.IService.IJobOfferService;
@@ -21,19 +22,21 @@ public class JobOfferController {
     }
 
     @PostMapping(path = "/add-job-offer")
-    public ResponseEntity<JobOffer> addJobOffer(@RequestBody JobOffer jobOffer){
+    public ResponseEntity<JobOfferDto> addJobOffer(@RequestBody JobOfferDto jobOfferDto){
+        JobOffer jobOffer = jobOfferService.convertToEntity(jobOfferDto);
         this.jobOfferService.addJobOffer(jobOffer);
-        return ResponseEntity.ok(jobOffer);
+        return ResponseEntity.ok(jobOfferDto);
     }
 
     @PutMapping(path = "/update/{jobOfferId}")
-    public ResponseEntity<JobOffer> updateJobOffer(@PathVariable Long jobOfferId,
-                                                       @RequestBody JobOffer jobOffer)
+    public ResponseEntity<JobOfferDto> updateJobOffer(@PathVariable Long jobOfferId,
+                                                       @RequestBody JobOfferDto jobOfferDto)
             throws JobOfferNotFoundException {
+        JobOffer jobOffer = this.jobOfferService.convertToEntity(jobOfferDto);
         this.jobOfferService.updateJobOffer(jobOfferId, jobOffer);
-        return ResponseEntity.ok(jobOffer);
-    }
-
+        return ResponseEntity.ok(jobOfferDto);
+    }                                    
+                                         
     @DeleteMapping(path = "/delete/{jobOfferId}")
     public ResponseEntity<Void> deleteJobOffer(@PathVariable Long jobOfferId)
             throws JobOfferNotFoundException {

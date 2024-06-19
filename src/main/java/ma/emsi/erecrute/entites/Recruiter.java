@@ -1,10 +1,7 @@
 package ma.emsi.erecrute.entites;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
@@ -14,9 +11,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter @Setter
 @DiscriminatorValue("RECRUITER")
-@SuperBuilder
 public class Recruiter extends User{
     private String companyName;
     private String website;

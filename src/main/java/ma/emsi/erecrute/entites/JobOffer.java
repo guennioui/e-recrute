@@ -1,16 +1,14 @@
 package ma.emsi.erecrute.entites;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -32,7 +30,7 @@ public class JobOffer {
     @OneToMany(
             mappedBy = "jobOffer",
             orphanRemoval = true,
-            cascade = CascadeType.REMOVE,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<Candidacy> candidacies = new ArrayList<>();
