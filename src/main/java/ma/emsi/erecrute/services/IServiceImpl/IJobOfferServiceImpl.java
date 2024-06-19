@@ -1,13 +1,16 @@
 package ma.emsi.erecrute.services.IServiceImpl;
 
+import ma.emsi.erecrute.dto.JobOfferDto;
 import ma.emsi.erecrute.entites.JobOffer;
 import ma.emsi.erecrute.exceptions.JobOfferNotFoundException;
+import ma.emsi.erecrute.mappers.JobOfferMapper;
 import ma.emsi.erecrute.repositories.JobOfferRepository;
 import ma.emsi.erecrute.services.IService.IJobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,15 +38,9 @@ public class IJobOfferServiceImpl implements IJobOfferService {
     @Override
     public void updateJobOffer(Long jobOfferId, JobOffer jobOffer) throws JobOfferNotFoundException {
         JobOffer jobOfferById = this.findJobOfferById(jobOfferId);
-        jobOfferById.setJobTitle(jobOffer.getJobTitle());
-        jobOfferById.setJobDescription(jobOffer.getJobDescription());
-        jobOfferById.setJobType(jobOffer.getJobType());
-        jobOfferById.setRequirements(jobOffer.getRequirements());
-        jobOfferById.setLocation(jobOffer.getLocation());
-        jobOfferById.setSalary(jobOffer.getSalary());
-        jobOfferById.setPostedDate(jobOffer.getPostedDate());
-        jobOfferById.setDeadLine(jobOffer.getDeadLine());
-        jobOfferById.setActive(jobOffer.isActive());
+        System.out.println("jobOfferById: "+jobOfferById);
+        jobOffer.setJobOfferId(jobOfferId);
+        System.out.println("jobOffer: "+jobOffer);
         this.jobOfferRepository.save(jobOffer);
     }
 
@@ -59,5 +56,15 @@ public class IJobOfferServiceImpl implements IJobOfferService {
     @Override
     public List<JobOffer> getAll() {
         return this.jobOfferRepository.findAll();
+    }
+
+    @Override
+    public JobOffer convertToEntity(JobOfferDto jobOfferDto) {
+        return JobOfferMapper.INSTANCE.JobOfferDtoToJobOffer(jobOfferDto);
+    }
+
+    @Override
+    public JobOfferDto convertToDto(JobOffer jobOffer) {
+        return JobOfferMapper.INSTANCE.JobOfferToJobOfferDto(jobOffer);
     }
 }
