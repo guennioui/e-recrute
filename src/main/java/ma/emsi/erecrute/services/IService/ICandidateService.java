@@ -15,8 +15,9 @@ import java.util.List;
 public interface ICandidateService {
     public void addCandidate(Candidate candidate) throws UserNotFoundException, RoleNotFoundException;
     public void deleteCandidate(Candidate candidate);
-    public void updateCandidate(Candidate candidate, MultipartFile image, MultipartFile resume) throws IOException;
+    public void updateCandidate(Candidate candidate) throws IOException;
     public Candidate findCandidateById(Long id) throws CandidateNotFoundException;
+    public Candidate findCandidateByEmail(String email) throws CandidateNotFoundException;
     public List<Candidate> getAll();
     public Candidate convertToEntity(CandidateDto candidateDto);
     public CandidateDto convertToDto(Candidate candidate);

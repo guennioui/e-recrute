@@ -1,7 +1,10 @@
 package ma.emsi.erecrute.services.IServiceImpl;
 
+import ma.emsi.erecrute.dto.CandidacyDto;
 import ma.emsi.erecrute.entites.Candidacy;
 import ma.emsi.erecrute.exceptions.CandidacyNotFoundException;
+import ma.emsi.erecrute.mappers.CandidacyMapper;
+import ma.emsi.erecrute.mappers.CandidateMapper;
 import ma.emsi.erecrute.repositories.CandidacyRepository;
 import ma.emsi.erecrute.services.IService.ICandidacyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +51,15 @@ public class ICandidacyServiceImpl implements ICandidacyService {
     @Override
     public List<Candidacy> getAll() {
         return this.candidacyRepository.findAll();
+    }
+
+    @Override
+    public Candidacy convertToEntity(CandidacyDto candidacyDto) {
+        return CandidacyMapper.INSTANCE.CandidacyDtoToCandidacy(candidacyDto);
+    }
+
+    @Override
+    public CandidacyDto convertToDto(Candidacy candidacy) {
+        return CandidacyMapper.INSTANCE.CandidacyToCandidacyDto(candidacy);
     }
 }

@@ -3,13 +3,18 @@ package ma.emsi.erecrute.controllers;
 import ma.emsi.erecrute.dto.CandidateDto;
 import ma.emsi.erecrute.entites.Candidate;
 import ma.emsi.erecrute.entites.User;
+import ma.emsi.erecrute.exceptions.CandidateNotFoundException;
 import ma.emsi.erecrute.exceptions.UserNotFoundException;
 import ma.emsi.erecrute.security.authentication.AuthenticationRequest;
 import ma.emsi.erecrute.security.authentication.AuthenticationResponse;
 import ma.emsi.erecrute.security.authentication.AuthenticationService;
 import ma.emsi.erecrute.security.jwtservice.JwtService;
+import ma.emsi.erecrute.services.IService.ICandidateFileService;
 import ma.emsi.erecrute.services.IService.ICandidateService;
+import ma.emsi.erecrute.services.IService.IFileService;
 import ma.emsi.erecrute.services.IService.UserRoleService;
+import ma.emsi.erecrute.services.IServiceImpl.FileUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,12 +35,22 @@ public class CandidateController {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final UserRoleService userRoleService;
+    private final FileUploadService fileUploadService;
+    private final ICandidateFileService candidateFileService;
 
-    public CandidateController(ICandidateService candidateService, AuthenticationManager authenticationManager, JwtService jwtService, UserRoleService userRoleService) {
+    @Autowired
+    public CandidateController(ICandidateService candidateService,
+                               AuthenticationManager authenticationManager,
+                               JwtService jwtService,
+                               UserRoleService userRoleService,
+                               FileUploadService fileUploadService,
+                               ICandidateFileService candidateFileService) {
         this.candidateService = candidateService;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
         this.userRoleService = userRoleService;
+        this.fileUploadService = fileUploadService;
+        this.candidateFileService = candidateFileService;
     }
 
     @GetMapping(path = "/home")
@@ -47,9 +62,16 @@ public class CandidateController {
     public ResponseEntity<CandidateDto> updateCandidate(@RequestPart("candidate") CandidateDto candidateDto,
                                                      @RequestPart("candidateImage") MultipartFile image,
                                                      @RequestPart("candidateResume") MultipartFile resume)
-            throws IOException {
+            throws IOException,
+            CandidateNotFoundException,
+            UserNotFoundException,
+            RoleNotFoundException {
         Candidate candidate = candidateService.convertToEntity(candidateDto);
-        this.candidateService.updateCandidate(candidate, image, resume);
+        this.candidateService.addCandidate(candidate);
+        String imageName = fileUploadService.storeImage(image);
+        candidateFileService.addFileToCandidate(candidate.getEmail(), imageName);
+        String resumeName= fileUploadService.storePdf(resume);
+        candidateFileService.addFileToCandidate(candidate.getEmail(), resumeName);
         return ResponseEntity.ok(candidateDto);
     }
     @GetMapping(path = "/all")

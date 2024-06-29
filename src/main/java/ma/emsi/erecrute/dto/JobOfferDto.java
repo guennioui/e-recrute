@@ -1,5 +1,7 @@
 package ma.emsi.erecrute.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.Data;
 import lombok.ToString;
 import ma.emsi.erecrute.entites.Candidacy;
@@ -23,7 +25,10 @@ public class JobOfferDto {
     private LocalDate postedDate;
     private LocalDate deadLine;
     private boolean isActive;
+    @JsonIgnore
     private List<Candidacy> candidacies = new ArrayList<>();
+    @JsonIgnore
     private Recruiter recruiter;
     private Profession profession;
+    private String recruiterUsername;
 }

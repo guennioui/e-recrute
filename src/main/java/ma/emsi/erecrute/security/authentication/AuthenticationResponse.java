@@ -7,5 +7,6 @@ import lombok.Data;
 @Data
 public class AuthenticationResponse {
     private boolean result = false;
+    private String username;
     private String jwt;
 }

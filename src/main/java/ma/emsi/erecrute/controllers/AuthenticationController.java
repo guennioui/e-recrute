@@ -41,6 +41,6 @@ public class AuthenticationController {
         authenticationManager.authenticate(authenticationToken);
         User user = userService.findUserByUsername(request.getUsername());
         String jwt = jwtService.generateToken(user, AuthenticationService.generateExtraClaims(user));
-        return ResponseEntity.ok(new AuthenticationResponse(true, jwt));
+        return ResponseEntity.ok(new AuthenticationResponse(true, user.getEmail(), jwt));
     }
 }

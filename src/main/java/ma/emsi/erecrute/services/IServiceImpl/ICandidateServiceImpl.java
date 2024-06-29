@@ -48,12 +48,8 @@ public class ICandidateServiceImpl implements ICandidateService {
     }
 
     @Override
-    public void updateCandidate(Candidate candidate, MultipartFile image, MultipartFile resume) throws IOException {
+    public void updateCandidate(Candidate candidate) throws IOException {
         candidate.setCreateAt(LocalDateTime.now());
-        String imageURL = this.fileUploadService.storeImage(image);
-        String resumeURL = this.fileUploadService.storePdf(resume);
-        candidate.setImage(imageURL);
-        candidate.setResume(resumeURL);
         this.userRepository.save(candidate);
     }
 
@@ -65,6 +61,14 @@ public class ICandidateServiceImpl implements ICandidateService {
     @Override
     public Candidate findCandidateById(Long id) throws CandidateNotFoundException {
         Optional<User> optionalCandidate = userRepository.findById(id);
+        if(optionalCandidate.isEmpty()){
+            throw new CandidateNotFoundException("candidate not found!");
+        }
+        return (Candidate) optionalCandidate.get();
+    }
+    @Override
+    public Candidate findCandidateByEmail(String email) throws CandidateNotFoundException {
+        Optional<User> optionalCandidate = userRepository.findByEmail(email);
         if(optionalCandidate.isEmpty()){
             throw new CandidateNotFoundException("candidate not found!");
         }

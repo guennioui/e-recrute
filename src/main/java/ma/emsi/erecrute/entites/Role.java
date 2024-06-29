@@ -1,5 +1,6 @@
 package ma.emsi.erecrute.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

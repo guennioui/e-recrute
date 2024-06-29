@@ -16,8 +16,6 @@ import java.util.List;
 @DiscriminatorValue("CANDIDATE")
 public class Candidate extends User{
     private LocalDate dateOfBirth;
-    private String image;
-    private String resume;
     private String nationality;
     @OneToMany(
             mappedBy = "candidate",
@@ -55,5 +53,4 @@ public class Candidate extends User{
             fetch = FetchType.LAZY
     )
     private List<Candidacy> candidacies = new ArrayList<>();
-    
 }

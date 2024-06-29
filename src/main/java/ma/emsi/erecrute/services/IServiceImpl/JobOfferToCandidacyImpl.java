@@ -29,5 +29,7 @@ public class JobOfferToCandidacyImpl implements JobOfferToCandidacy {
         Candidacy candidacyById = this.candidacyService.findCandidacyById(candidacy_id);
         jobOfferById.getCandidacies().add(candidacyById);
         candidacyById.setJobOffer(jobOfferById);
+        jobOfferService.addJobOffer(jobOfferById);
+        candidacyService.addCandidacy(candidacyById);
     }
 }

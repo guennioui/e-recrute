@@ -39,7 +39,7 @@ public class RegistrationController {
         Candidate candidate = candidateService.convertToEntity(registrationDto);
         this.candidateService.addCandidate(candidate);
         String token = jwtService.generateToken(candidate, AuthenticationService.generateExtraClaims(candidate));
-        return ResponseEntity.ok(new AuthenticationResponse(true, token));
+        return ResponseEntity.ok(new AuthenticationResponse(true, candidate.getEmail(),token));
     }
 
     @PostMapping(path = "/recruiter-registration")
@@ -47,6 +47,6 @@ public class RegistrationController {
         Recruiter recruiter = recruiterService.convertToEntity(registrationDto);
         this.recruiterService.addRecruiter(recruiter);
         String token = jwtService.generateToken(recruiter, AuthenticationService.generateExtraClaims(recruiter));
-        return ResponseEntity.ok(new AuthenticationResponse(true, token));
+        return ResponseEntity.ok(new AuthenticationResponse(true, recruiter.getEmail(),token));
     }
 }

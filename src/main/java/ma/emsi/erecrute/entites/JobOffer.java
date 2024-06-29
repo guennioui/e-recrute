@@ -11,7 +11,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter @Setter
 @Builder
 public class JobOffer {
     @Id

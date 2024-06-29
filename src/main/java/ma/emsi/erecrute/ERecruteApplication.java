@@ -13,6 +13,7 @@ public class ERecruteApplication {
     public static void main(String[] args) {
         SpringApplication.run(ERecruteApplication.class, args);
     }
+
 //    @Bean
 //    CommandLineRunner commandLineRunner(RoleService roleService){
 //        return args -> {
