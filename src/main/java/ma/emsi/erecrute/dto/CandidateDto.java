@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,8 +18,9 @@ public class CandidateDto {
     private String password;
     private String telephone;
     private String linkedInUrl;
-    private String image;
     private String resume;
     private String nationality;
     private LocalDate dateOfBirth;
+    private String[] skills;
+    private List<FileDto> files = new ArrayList<>();
 }

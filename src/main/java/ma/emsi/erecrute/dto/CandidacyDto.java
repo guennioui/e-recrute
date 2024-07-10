@@ -12,6 +12,5 @@ public class CandidacyDto {
     private Long candidacyId;
     private LocalDate appliedDate;
     private ApplicationStatus applicationStatus;
-    private Candidate candidate;
-    private JobOffer jobOffer;
+    private CandidateDto candidate;
 }

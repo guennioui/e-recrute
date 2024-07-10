@@ -21,4 +21,9 @@ public class Skill {
     @ManyToOne
     @JoinColumn(name = "candidate_id")
     private Candidate candidate;
+
+    public Skill(String name, Candidate candidate) {
+        this.name = name;
+        this.candidate = candidate;
+    }
 }

@@ -1,5 +1,7 @@
 package ma.emsi.erecrute.entites;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import ma.emsi.erecrute.entites.enums.ApplicationStatus;

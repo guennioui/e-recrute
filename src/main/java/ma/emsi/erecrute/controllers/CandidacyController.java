@@ -1,5 +1,6 @@
 package ma.emsi.erecrute.controllers;
 
+import ma.emsi.erecrute.dto.CandidacyDto;
 import ma.emsi.erecrute.entites.Candidacy;
 import ma.emsi.erecrute.entites.enums.ApplicationStatus;
 import ma.emsi.erecrute.exceptions.CandidacyNotFoundException;
@@ -10,13 +11,11 @@ import ma.emsi.erecrute.services.IService.ICandidacyService;
 import ma.emsi.erecrute.services.IService.JobOfferToCandidacy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/candidacy")
@@ -42,4 +41,10 @@ public class CandidacyController {
         jobOfferToCandidacy.addJobOfferToCandidacy(jobOfferId, candidacy.getCandidacyId());
         return ResponseEntity.ok("Candidacy applied successfully");
     }
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<CandidacyDto>> getAll(){
+        List<CandidacyDto> candidacyDtos = candidacyService.toDtoList(candidacyService.getAll());
+        return ResponseEntity.ok(candidacyDtos);
+    }
+
 }

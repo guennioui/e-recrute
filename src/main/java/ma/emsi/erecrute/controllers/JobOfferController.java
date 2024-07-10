@@ -61,13 +61,7 @@ public class JobOfferController {
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<JobOfferDto>> getAll(){
-        List<JobOffer> jobOffers = this.jobOfferService.getAll();
-        List<JobOfferDto> jobOfferDtos = new ArrayList<>();
-        for (JobOffer jobOffer : jobOffers){
-            JobOfferDto jobOfferDto = jobOfferService.convertToDto(jobOffer);
-            jobOfferDtos.add(jobOfferDto);
-        }
-        System.out.println(jobOfferDtos);
+        List<JobOfferDto> jobOfferDtos = jobOfferService.toDtoList(this.jobOfferService.getAll());
         return ResponseEntity.ok(jobOfferDtos);
     }
 

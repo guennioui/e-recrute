@@ -15,7 +15,7 @@ import java.util.List;
 public interface ICandidateService {
     public void addCandidate(Candidate candidate) throws UserNotFoundException, RoleNotFoundException;
     public void deleteCandidate(Candidate candidate);
-    public void updateCandidate(Candidate candidate) throws IOException;
+    public Candidate updateCandidate(String username,Candidate candidate) throws CandidateNotFoundException;
     public Candidate findCandidateById(Long id) throws CandidateNotFoundException;
     public Candidate findCandidateByEmail(String email) throws CandidateNotFoundException;
     public List<Candidate> getAll();

@@ -15,4 +15,5 @@ public interface IJobOfferService {
     public List<JobOffer> getAll();
     public JobOffer convertToEntity(JobOfferDto jobOfferDto);
     public JobOfferDto convertToDto(JobOffer jobOffer);
+    public List<JobOfferDto> toDtoList(List<JobOffer> jobOffers);
 }

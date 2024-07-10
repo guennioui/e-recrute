@@ -2,23 +2,17 @@ package ma.emsi.erecrute.controllers;
 
 import ma.emsi.erecrute.dto.CandidateDto;
 import ma.emsi.erecrute.entites.Candidate;
-import ma.emsi.erecrute.entites.User;
+import ma.emsi.erecrute.entites.Skill;
 import ma.emsi.erecrute.exceptions.CandidateNotFoundException;
+import ma.emsi.erecrute.exceptions.SkillNotFoundException;
 import ma.emsi.erecrute.exceptions.UserNotFoundException;
-import ma.emsi.erecrute.security.authentication.AuthenticationRequest;
-import ma.emsi.erecrute.security.authentication.AuthenticationResponse;
-import ma.emsi.erecrute.security.authentication.AuthenticationService;
 import ma.emsi.erecrute.security.jwtservice.JwtService;
-import ma.emsi.erecrute.services.IService.ICandidateFileService;
-import ma.emsi.erecrute.services.IService.ICandidateService;
-import ma.emsi.erecrute.services.IService.IFileService;
-import ma.emsi.erecrute.services.IService.UserRoleService;
+import ma.emsi.erecrute.services.IService.*;
 import ma.emsi.erecrute.services.IServiceImpl.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,20 +31,25 @@ public class CandidateController {
     private final UserRoleService userRoleService;
     private final FileUploadService fileUploadService;
     private final ICandidateFileService candidateFileService;
-
+    private final ISkillService skillService;
+    private final CandidateToSkill candidateToSkill;
     @Autowired
     public CandidateController(ICandidateService candidateService,
                                AuthenticationManager authenticationManager,
                                JwtService jwtService,
                                UserRoleService userRoleService,
                                FileUploadService fileUploadService,
-                               ICandidateFileService candidateFileService) {
+                               ICandidateFileService candidateFileService,
+                               ISkillService skillService,
+                               CandidateToSkill candidateToSkill) {
         this.candidateService = candidateService;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
         this.userRoleService = userRoleService;
         this.fileUploadService = fileUploadService;
         this.candidateFileService = candidateFileService;
+        this.skillService = skillService;
+        this.candidateToSkill = candidateToSkill;
     }
 
     @GetMapping(path = "/home")
@@ -65,15 +64,24 @@ public class CandidateController {
             throws IOException,
             CandidateNotFoundException,
             UserNotFoundException,
-            RoleNotFoundException {
+            RoleNotFoundException,
+            SkillNotFoundException {
         Candidate candidate = candidateService.convertToEntity(candidateDto);
-        this.candidateService.addCandidate(candidate);
+        candidate = this.candidateService.updateCandidate(candidate.getEmail(), candidate);
+        for (String skill : candidateDto.getSkills()){
+            Skill skill1 = new Skill();
+            skill1.setName(skill);
+            skill1.setCandidate(candidate);
+            skillService.addSkill(skill1);
+            candidateToSkill.addCandidateToSkill(candidate.getId(), skill1.getSkillId());
+        }
         String imageName = fileUploadService.storeImage(image);
         candidateFileService.addFileToCandidate(candidate.getEmail(), imageName);
         String resumeName= fileUploadService.storePdf(resume);
         candidateFileService.addFileToCandidate(candidate.getEmail(), resumeName);
         return ResponseEntity.ok(candidateDto);
     }
+
     @GetMapping(path = "/all")
     public ResponseEntity<List<CandidateDto>> getAll(){
         List<Candidate> candidates = candidateService.getAll();

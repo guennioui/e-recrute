@@ -19,26 +19,26 @@ import java.util.List;
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String civility;
-    private String lastName;
-    private String firstName;
+    protected Long id;
+    protected String civility;
+    protected String lastName;
+    protected String firstName;
     @Column(unique = true)
-    private String email;
-    private String password;
-    private String telephone;
-    private String linkedInUrl;
-    private LocalDateTime createAt;
+    protected String email;
+    protected String password;
+    protected String telephone;
+    protected String linkedInUrl;
+    protected LocalDateTime createAt;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
+    protected List<Role> roles = new ArrayList<>();
     @OneToMany(
             mappedBy = "user",
             orphanRemoval = true,
             cascade = CascadeType.REMOVE,
             fetch = FetchType.LAZY
     )
-    private List<File> files = new ArrayList<>();
+    protected List<File> files = new ArrayList<>();
 }

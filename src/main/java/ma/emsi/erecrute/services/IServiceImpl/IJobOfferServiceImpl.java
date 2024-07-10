@@ -38,9 +38,7 @@ public class IJobOfferServiceImpl implements IJobOfferService {
     @Override
     public void updateJobOffer(Long jobOfferId, JobOffer jobOffer) throws JobOfferNotFoundException {
         JobOffer jobOfferById = this.findJobOfferById(jobOfferId);
-        System.out.println("jobOfferById: "+jobOfferById);
         jobOffer.setJobOfferId(jobOfferId);
-        System.out.println("jobOffer: "+jobOffer);
         this.jobOfferRepository.save(jobOffer);
     }
 
@@ -66,5 +64,10 @@ public class IJobOfferServiceImpl implements IJobOfferService {
     @Override
     public JobOfferDto convertToDto(JobOffer jobOffer) {
         return JobOfferMapper.INSTANCE.JobOfferToJobOfferDto(jobOffer);
+    }
+
+    @Override
+    public List<JobOfferDto> toDtoList(List<JobOffer> jobOffers) {
+        return JobOfferMapper.INSTANCE.toDtoList(jobOffers);
     }
 }

@@ -42,7 +42,7 @@ public class Candidate extends User{
     @OneToMany(
             mappedBy = "candidate",
             orphanRemoval = true,
-            cascade = CascadeType.REMOVE,
+            cascade=CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<Skill> skills = new ArrayList<>();

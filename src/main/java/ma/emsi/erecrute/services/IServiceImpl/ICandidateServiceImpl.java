@@ -48,9 +48,12 @@ public class ICandidateServiceImpl implements ICandidateService {
     }
 
     @Override
-    public void updateCandidate(Candidate candidate) throws IOException {
-        candidate.setCreateAt(LocalDateTime.now());
-        this.userRepository.save(candidate);
+    public Candidate updateCandidate(String username, Candidate candidate) throws CandidateNotFoundException {
+        Candidate candidate1 = this.findCandidateByEmail(username);
+        candidate1.setDateOfBirth(candidate.getDateOfBirth());
+        candidate1.setLinkedInUrl(candidate.getLinkedInUrl());
+        candidate1.setNationality(candidate.getNationality());
+        return this.userRepository.save(candidate1);
     }
 
     @Override

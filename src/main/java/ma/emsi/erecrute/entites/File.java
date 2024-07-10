@@ -11,13 +11,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public abstract class File {
+public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long fileId;
-    private String fileName;
-    private double size;
-    private String filePath;
+    protected Long fileId;
+    protected String fileName;
+    protected double size;
+    protected String filePath;
     @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
+    protected User user;
+
+    @Override
+    public String toString() {
+        return "File{" +
+                "fileId=" + fileId +
+                ", fileName='" + fileName + '\'' +
+                ", size=" + size +
+                ", filePath='" + filePath + '\'' +
+                '}';
+    }
 }

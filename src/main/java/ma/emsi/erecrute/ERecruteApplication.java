@@ -14,13 +14,13 @@ public class ERecruteApplication {
         SpringApplication.run(ERecruteApplication.class, args);
     }
 
-//    @Bean
-//    CommandLineRunner commandLineRunner(RoleService roleService){
-//        return args -> {
-//            roleService.addRole(Role.builder().roleName("CANDIDATE").build());
-//            roleService.addRole(Role.builder().roleName("RECRUITER").build());
-//        };
-//    }
+    @Bean
+    CommandLineRunner commandLineRunner(RoleService roleService){
+        return args -> {
+            roleService.addRole(Role.builder().roleName("CANDIDATE").build());
+            roleService.addRole(Role.builder().roleName("RECRUITER").build());
+        };
+    }
 
 
 }

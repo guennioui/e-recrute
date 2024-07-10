@@ -10,5 +10,6 @@ public interface ISkillService {
     public void deleteSkill(Long skillId) throws SkillNotFoundException;
     public void updateSkill(Long skillId, Skill skill) throws SkillNotFoundException;
     public Skill findSkillById(Long id) throws SkillNotFoundException;
+    public Skill findSkillByName(String skillName) throws SkillNotFoundException;
     public List<Skill> getAll();
 }

@@ -52,6 +52,15 @@ public class ISkillServiceImpl implements ISkillService {
     }
 
     @Override
+    public Skill findSkillByName(String skillName) throws SkillNotFoundException {
+        Optional<Skill> optionalSkill = this.skillRepository.findByName(skillName);
+        if(optionalSkill.isEmpty()){
+            throw new SkillNotFoundException("Skill not found Exception!");
+        }
+        return optionalSkill.get();
+    }
+
+    @Override
     public List<Skill> getAll() {
         return this.skillRepository.findAll();
     }
